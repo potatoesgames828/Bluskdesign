@@ -1,0 +1,65 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root,
+[data-theme="dark"] {
+  --bg: 9 11 16;          /* #090B10 */
+  --surface: 17 21 29;    /* #11151D */
+  --elevated: 25 31 42;   /* #191F2A */
+  --line: 37 45 60;
+  --fg: 245 247 250;      /* #F5F7FA */
+  --muted: 146 155 173;   /* #929BAD */
+  color-scheme: dark;
+}
+[data-theme="light"] {
+  --bg: 245 247 250;
+  --surface: 255 255 255;
+  --elevated: 236 240 246;
+  --line: 222 228 237;
+  --fg: 13 17 26;
+  --muted: 92 102 122;
+  color-scheme: light;
+}
+
+@layer base {
+  html { -webkit-tap-highlight-color: transparent; }
+  body { @apply bg-bg text-fg antialiased; font-feature-settings: "cv11", "ss01"; }
+  ::selection { background: rgb(52 120 246 / 0.35); }
+  * { scrollbar-width: thin; scrollbar-color: rgb(var(--line)) transparent; }
+  h1, h2, h3 { @apply font-display tracking-tight; }
+}
+
+@layer components {
+  .card { @apply rounded-2xl border border-line bg-surface shadow-card; }
+  .input {
+    @apply w-full rounded-xl border border-line bg-bg/60 px-3.5 py-2.5 text-sm text-fg placeholder:text-muted/70
+      outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/25 disabled:opacity-60;
+  }
+  .label { @apply mb-1.5 block text-xs font-medium text-muted; }
+  .chip { @apply inline-flex items-center gap-1 rounded-full border border-line px-2.5 py-1 text-xs text-muted; }
+  .table-wrap { @apply overflow-x-auto rounded-2xl border border-line bg-surface; }
+  .tbl { @apply w-full text-left text-sm; }
+  .tbl th { @apply whitespace-nowrap border-b border-line bg-elevated/40 px-4 py-3 text-xs font-medium uppercase tracking-wide text-muted; }
+  .tbl td { @apply border-b border-line/60 px-4 py-3 align-middle; }
+  .tbl tr:last-child td { @apply border-b-0; }
+  .tbl tbody tr { @apply transition-colors hover:bg-elevated/40; }
+  .grid-bg {
+    background-image: linear-gradient(rgb(var(--line) / 0.35) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(var(--line) / 0.35) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+  .prose-ai { @apply text-sm leading-relaxed; }
+  .prose-ai h1, .prose-ai h2, .prose-ai h3 { @apply mb-2 mt-4 font-semibold text-fg; }
+  .prose-ai p { @apply my-2; }
+  .prose-ai ul { @apply my-2 list-disc pl-5; }
+  .prose-ai ol { @apply my-2 list-decimal pl-5; }
+  .prose-ai code { @apply rounded bg-elevated px-1 py-0.5 text-[13px]; }
+  .prose-ai pre { @apply my-3 overflow-x-auto rounded-xl bg-bg p-3 text-[13px]; }
+  .prose-ai pre code { @apply bg-transparent p-0; }
+  .prose-ai table { @apply my-3 w-full text-left text-xs; }
+  .prose-ai th, .prose-ai td { @apply border border-line px-2 py-1; }
+}
+
+.leaflet-container { background: rgb(var(--surface)); font-family: inherit; }
+.leaflet-popup-content-wrapper, .leaflet-popup-tip { background: rgb(var(--surface)); color: rgb(var(--fg)); }
